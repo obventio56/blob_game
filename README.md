@@ -22,7 +22,7 @@ I also set up an animation loop and used Three.js object properties to vary the 
 
 At this point I had the following output:
 
-IMAGE GOES HERE
+![step one](step1.png)
 
 ## Noise
 
@@ -30,9 +30,9 @@ From here I wanted to make the blobs actually blobby rather than spherical. I di
 
 I use the noise function by passing the three position components as the three arguments. This gives me a unique "variation" factor for each vertex which I add to its position in the shader. I also tweaked the color calculation in the fragment shader to make it more muted and relaxing. 
 
-At this point my blob looked like this. 
+At this point my blob looked like this:
 
-IMAGE GOES HERE
+![step two](step2.png)
 
 ## Collision
 
@@ -62,6 +62,9 @@ First, I wanted to add more blobs. To accomplish this goal, I
 - Replaced the blob position variables in the vertex shader with an array of positions. I iterate over this array and calculate deformation much like before. 
 
 Finally, I wanted one blob to follow my mouse movements. To accomplish this behavior, I updated the animation loop so that the first blob's velocity is reset to some scaled vector of the difference between mouse position and blob position in X and Y (Z remains unconstrained). 
+
+Here is a screenshot of the final result:
+![step three](step3.png)
 
 ## Resources
 - https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
