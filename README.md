@@ -1,5 +1,5 @@
-# Blob game
-CS175 Final Project
+# Blob World
+CS175 Final Project - Alex Pedersen
 
 In this project I make a game with many colorful, amorphous blobs that animate pleasingly and collide into eachother. In the game, you can control one blob with your mouse to affect the scene. 
 
@@ -46,17 +46,24 @@ From here, I introduced a bounding box vector. On each animation frame, I check 
 
 In order to implement blob collision, I added a second blob with all the same properties as the first one. From here, I implemented blob collision in a similar manor to bounding box collision: I check if the distance between blobs is less than the blob's radius (I don't use diameter because I want some overlap). If the blobs have collided I compute the vector of their collision from their positions. I use this vector to calculate the portion of each blob's previous velocity in the direction of the collision, which gives impluse magnitude. Finally, I update each blob's velocity in the opposite direction of the collision by the appropriate impulse value. 
 
+Notably, this simulation assumes all the blobs have equal mass and there is no inertia, but this is ok for my purpose. 
+
 ### Deformation
 
+I also want the blobs to deform when they collide. To approximate this behavior, I have the blobs deform away from eachother when their centers are close.
 
+To implement this behavior I added a uniform variables in my vertex shader to track the world positions of each blob. In the shader, I calculate the distance between each vertex and the other blob and update the vertex position accordingly (the closer the vertex, the more I subtract in the direction of the other blob). I use the smoothsetp function to produce a gradient effect. 
 
 ## Final Touches
 
-- Generalize to N blobs
-- Following the mouse
+First, I wanted to add more blobs. To accomplish this goal, I 
+- Replaced many of my blob variables with arrays. 
+- Updated the animation loop to apply updates in a loop. Collision detection becomes n^2, but this seems ok for this number of blobs on my machine. 
+- Replaced the blob position variables in the vertex shader with an array of positions. I iterate over this array and calculate deformation much like before. 
+
+Finally, I wanted one blob to follow my mouse movements. To accomplish this behavior, I updated the animation loop so that the first blob's velocity is reset to some scaled vector of the difference between mouse position and blob position in X and Y (Z remains unconstrained). 
 
 ## Resources
-
 https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
 https://thebookofshaders.com/11/
 https://discoverthreejs.com/book/first-steps/animation-loop/
